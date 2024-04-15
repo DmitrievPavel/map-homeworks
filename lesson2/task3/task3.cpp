@@ -32,8 +32,11 @@ void swap2(Data& d1, Data& d2) {
 }
 
 void swap3(Data& d1, Data& d2) {
-    std::unique_lock<std::mutex> lock1(d1.mutex, std::try_to_lock);
-    std::unique_lock<std::mutex> lock2(d2.mutex, std::try_to_lock);
+    //std::unique_lock<std::mutex> lock1(d1.mutex, std::try_to_lock);
+    //std::unique_lock<std::mutex> lock2(d2.mutex, std::try_to_lock);
+    std::unique_lock<std::mutex> lock1(d1.mutex, std::defer_lock);
+    std::unique_lock<std::mutex> lock2(d2.mutex, std::defer_lock);
+    std::lock(lock1, lock2);
 
     int temp = d1.getData();
     d1.setData(d2.getData());
