@@ -41,6 +41,8 @@ void swap3(Data& d1, Data& d2) {
     int temp = d1.getData();
     d1.setData(d2.getData());
     d2.setData(temp);
+    d1.mutex.unlock();
+    d2.mutex.unlock();
 }
 
 int main() {
